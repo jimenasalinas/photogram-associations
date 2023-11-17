@@ -31,8 +31,11 @@ class User < ApplicationRecord
   has_many(:likes, class_name: "Like", foreign_key: "fan_id" )
 
   # User#sent_follow_requests: returns rows from the follow requests table associated to this user by the sender_id column
+  has_many(:sent_follow_requests, class_name: "FollowRequest", foreign_key: "sender_id" )
+
 
   # User#received_follow_requests: returns rows from the follow requests table associated to this user by the recipient_id column
+  has_many(:received_follow_requests, class_name: "FollowRequest", foreign_key: "recipient_id" )
 
 
   ### Scoped direct associations
@@ -113,21 +116,21 @@ class User < ApplicationRecord
     return unique_matching_photos
   end
 
-  def sent_follow_requests
-    my_id = self.id
+  # def sent_follow_requests
+  #   my_id = self.id
 
-    matching_follow_requests = FollowRequest.where({ :sender_id => my_id })
+  #   matching_follow_requests = FollowRequest.where({ :sender_id => my_id })
 
-    return matching_follow_requests
-  end
+  #   return matching_follow_requests
+  # end
 
-  def received_follow_requests
-    my_id = self.id
+  # def received_follow_requests
+  #   my_id = self.id
 
-    matching_follow_requests = FollowRequest.where({ :recipient_id => my_id })
+  #   matching_follow_requests = FollowRequest.where({ :recipient_id => my_id })
 
-    return matching_follow_requests
-  end
+  #   return matching_follow_requests
+  # end
 
   def accepted_sent_follow_requests
     my_sent_follow_requests = self.sent_follow_requests
