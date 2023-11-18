@@ -61,7 +61,7 @@ class User < ApplicationRecord
 
   # User#followers: returns rows from the users table associated to this user through its accepted_received_follow_requests (the follow requests' senders)
 
-  has_many(:followers, through: :accepted_received_follow_request, :users)
+  has_many(:followers, through: :accepted_received_follow_request, source: :users)
 
 
 
